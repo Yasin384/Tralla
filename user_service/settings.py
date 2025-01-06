@@ -75,6 +75,7 @@ WSGI_APPLICATION = 'user_service.wsgi.application'
 DATABASES = {
     'default': env.db()
 }
+DATABASES['default']['OPTIONS'] = {'connect_timeout': 10}
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
