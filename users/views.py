@@ -4,6 +4,24 @@ from rest_framework import status
 from .serializers import UserSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
+class UserMeView(APIView):
+    """
+    Returns details of the authenticated user.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "role": user.role,  # Assuming 'role' is a field in your User model
+        })
 
 class RegisterView(APIView):
     def post(self, request):
